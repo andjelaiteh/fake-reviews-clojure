@@ -7,5 +7,9 @@
                  [org.clojure/data.csv "1.1.0"]]
   :main ^:skip-aot fake-reviews.core
   :target-path "target/%s"
-  :profiles {:uberjar {:aot :all
-                       :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}})
+
+  :profiles
+  {:dev {:dependencies [[midje "1.10.10"]]
+         :plugins [[lein-midje "3.2.1"]]}
+   :uberjar {:aot :all
+             :jvm-opts ["-Dclojure.compiler.direct-linking=true"]}} )

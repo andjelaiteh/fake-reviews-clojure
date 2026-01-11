@@ -3,7 +3,7 @@
             [fake-reviews.preprocess :as prep]
             [fake-reviews.analytics :as an]))
 
-;ucitavanje i sredjivanje csv-a
+;;ucitavanje i sredjivanje csv-a
 (def reviews
   (doall
     (map prep/prepare-reviews
@@ -33,5 +33,6 @@
   (println "Average text length by category " (an/average-text-len-by-category reviews))
   (println "Average text length of real reviews by category " (an/average-text-len-real-by-category reviews))
   (println "Average text length of fake reviews by category " (an/average-text-len-fake-by-category reviews))
+
   )
 

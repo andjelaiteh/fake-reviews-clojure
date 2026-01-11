@@ -1,35 +1,32 @@
 (ns fake-reviews.analytics)
 
-;racunanje srednje vrednosti
+;;racunanje srednje vrednosti
 (defn avg [data]
-  (let [xs (remove nil? data)]
+  (let [data (remove nil? data)]
     (when (seq data)
       (/ (reduce + data) (double (count data))))))
 
-
-;vraca sve fake
+;;vraca sve fake
 (defn get-fake-reviews [data]
   (filter #(= (:label-name %) "fake") data))
 
-;vraca sve real recenzije
+;;vraca sve real recenzije
 (defn get-real-reviews [data]
   (filter #(= (:label-name %) "real") data))
 
-
-
-;prosecan rating
+;;prosecna ocena
 (defn average-rating [data]
   (avg (map :rating-num data)))
 
-;prosecan rating real recenzija
+;;prosecna ocena real recenzija
 (defn average-rating-real [data]
   (average-rating (get-real-reviews data)))
 
-;prosecan rating fake recenzija
+;;prosecna ocena fake recenzija
 (defn average-rating-fake [data]
   (average-rating (get-fake-reviews data)))
 
-;prosecna duzina recenzija
+;;prosecna duzina recenzija
 (defn average-text-length [data]
   (avg (map :text-len data)))
 
@@ -56,16 +53,18 @@
 (defn real-count-by-category [data]
   (reviews-count-by-category (get-real-reviews data)))
 
+;;top 3 fake kategorije
 (defn top-fake-categories [data]
   (take 3 (sort-by val > (fake-count-by-category data))))
 
+;;top 3 real kategorije
 (defn top-real-categories [data]
   (take 3 (sort-by val > (real-count-by-category data))))
 
+;;(defn average-rating-by-category [data]
+;;(into {} (for [[cat reviews] (group-by :category data)] [cat (avg (map :rating-num reviews))])))
 
-;(defn average-rating-by-category [data]
-;(into {} (for [[cat reviews] (group-by :category data)] [cat (avg (map :rating-num reviews))])))
-
+;;prosecna ocena po kategorijama
 (defn average-rating-by-category [data]
   (let [sums
         (reduce
@@ -83,13 +82,15 @@
                  [cat (/ sum count)])
                sums))))
 
-
+;;prosecna ocena fake recenzija po kategorijama
 (defn average-rating-fake-by-category [data]
   (average-rating-by-category (get-fake-reviews data)))
 
+;;prosecna ocena real recenzija po kategorijama
 (defn average-rating-real-by-category [data]
   (average-rating-by-category (get-real-reviews data)))
 
+;;prosecna duzina teksta recenzije po kategorijama
 (defn average-text-len-by-category [data]
   (let [sums
         (reduce
@@ -107,8 +108,10 @@
                  [cat (/ (double sum) count)])
                sums))))
 
+;;prosecna duzina teksta real recenzija po kategorijama
 (defn average-text-len-real-by-category [data]
   (average-text-len-by-category (get-real-reviews data)))
 
+;;prosecna duzina teksta fake recenzija po kategorijama
 (defn average-text-len-fake-by-category [data]
   (average-text-len-by-category (get-fake-reviews data)))

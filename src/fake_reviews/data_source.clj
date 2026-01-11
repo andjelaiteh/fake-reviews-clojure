@@ -4,7 +4,7 @@
             [clojure.data.csv :as csv]))
 
 
-;ucitavanje csv fajla
+;;ucitavanje csv fajla
 (defn read-csv [csvname]
   (with-open [r (io/reader (io/resource csvname))]
     (doall (csv/read-csv r))))
