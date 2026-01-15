@@ -30,8 +30,11 @@
 (defn average-text-length [data]
   (avg (map :text-len data)))
 
-;(apply min (map :text-len all-reviews-processed))
-;(apply max (map :text-len all-reviews-processed))
+(defn min-text-length [reviews]
+  (apply min (map :text-len reviews)))
+
+(defn max-text-length [reviews]
+  (apply max (map :text-len reviews)))
 
 ;prosecna duzina teksta fake recenzija
 (defn average-text-length-fake [data]
