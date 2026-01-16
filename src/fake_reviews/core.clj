@@ -3,7 +3,8 @@
             [fake-reviews.preprocess :as prep]
             [fake-reviews.analytics :as an]
             [fake-reviews.prepare-for-logistic :as prelog]
-            [fake-reviews.logistic :as log]))
+            [fake-reviews.logistic :as log]
+            [fake-reviews.metrics :as m]))
 
 ;;ucitavanje i sredjivanje csv-a
 
@@ -15,12 +16,15 @@
 
 (def min-text-len (an/min-text-length reviews))
 (def max-text-len (an/max-text-length reviews))
+(def min-rating (an/min-rating reviews))
+(def max-rating (an/max-rating reviews))
 
-(def dataset-for-logistic (prelog/prepare-for-logistic reviews min-text-len max-text-len))
+
+(def dataset-for-logistic (prelog/prepare-for-logistic reviews min-text-len max-text-len min-rating max-rating))
 (def splits (prelog/split-60-40 dataset-for-logistic))
 
 (def train-data (:train splits))
-(def test-data  (:test splits))
+(def test-data (:test splits))
 
 
 (defn -main
@@ -49,30 +53,44 @@
   ;(println "Primer reda:" (select-keys (first reviews) [ :rating :text-len :label]))
   ;(println "Prvi red features dataseta "  (select-keys (first dataset-for-logistic) [:x :y]))
   ;(println "train:" (count train-data) "test:" (count test-data))
-  ;(println "dotpr:"(log/sigmoid 0))
-  (let [dim (count (:x (first train-data)))
-        w0  (vec (repeat dim 0.0))
-        w1  (log/train-epoch w0 train-data 0.001)]
-    (println "w0 (pre treninga):" w0)
-    (println "w1 (posle 1 epohe):" w1))
+  ;(println "dot product:"(log/sigmoid 0))
 
-  (let [dim (count (:x (first train-data)))
-        w0  (vec (repeat dim 0.0))
-        w1  (log/train-epoch w0 train-data 0.001)]
-    (println "x first:" (:x (first train-data)))
-    (println "y first:" (:y (first train-data)))
-    (println "score first:" (log/score w1 (:x (first train-data)))))
+  ;; (let [dim (count (:x (first train-data)))
+  ; w0 (vec (repeat dim 0.0))
+  ;    w1 (log/train-epoch w0 train-data 0.001)]
+  ; (println "w0 (pre treninga):" w0)
+  ; (println "w1 (posle 1 epohe):" w1)
+  ;
+;(let [dim (count (:x (first train-data)))
+;      w0 (vec (repeat dim 0.0))
+;      w1 (log/train-epoch w0 train-data 0.001)]
+;  (println "x first:" (:x (first train-data)))
+;  (println "y first:" (:y (first train-data)))
+;  (println "score first:" (log/score w1 (:x (first train-data)))))
 
-  (let [dim (count (:x (first train-data)))
-        w0  (vec (repeat dim 0.0))
-        w1  (log/train-epoch w0 train-data 0.001)
-        w2  (log/train-epoch w1 train-data 0.001)]
-    (println "w1:" w1)
-    (println "w2:" w2))
+;(let [dim (count (:x (first train-data)))
+;      w0 (vec (repeat dim 0.0))
+;      w1 (log/train-epoch w0 train-data 0.001)
+;      w2 (log/train-epoch w1 train-data 0.001)]
+;  (println "w1:" w1)
+;  (println "w2:" w2))
+  (let [alpha 0.001
+        epochs 200
+        w (log/train train-data alpha epochs)
+        predictions (map (fn [{:keys [x y]}]
+                           {:y-true y
+                            :y-pred (log/predict w x)})
+                         test-data)]
+
+    (let [cm (m/confusion-matrix predictions)]
+      (println "CM:" cm)
+      (println "Accuracy:" (m/accuracy cm))
+      (println "Precision:" (m/precision cm))
+      (println "Recall:" (m/recall cm))
+      (println "F1 score:" (m/f1 cm)))
+    ))
 
 
 
 
 
-
-  )

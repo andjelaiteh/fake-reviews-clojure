@@ -13,7 +13,7 @@
     (/ (- x min-x)
        (- max-x min-x))))
 
-(defn prepare-for-logistic [reviews min-text-len max-text-len]
+(defn prepare-for-logistic [reviews min-text-len max-text-len min-rating max-rating]
   (mapv
     (fn [review]
       {:x [1.0
@@ -21,7 +21,10 @@
              (to-double (:text-len review))
              min-text-len
              max-text-len)
-           (to-double (:rating review))]
+           (normalize
+             (:rating-num review)
+             min-rating
+             max-rating)]
        :y (to-double (:label review))})
     reviews))
 

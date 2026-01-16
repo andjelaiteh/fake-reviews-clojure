@@ -32,3 +32,8 @@
         (recur (train-epoch w train-data alpha)
                (inc e))))))
 
+(defn predict [w x]
+  (if (>= (score w x) 0.4)
+    1.0
+    0.0))
+
