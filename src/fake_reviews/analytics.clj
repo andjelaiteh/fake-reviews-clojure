@@ -30,6 +30,14 @@
 (defn average-text-length [data]
   (avg (map :text-len data)))
 
+;prosecna duzina teksta fake recenzija
+(defn average-text-length-fake [data]
+  (average-text-length (get-fake-reviews data)))
+
+;prosecna duzina teksta real recenzija
+(defn average-text-length-real [data]
+  (average-text-length (get-real-reviews data)))
+
 (defn min-text-length [reviews]
   (apply min (map :text-len reviews)))
 
@@ -41,14 +49,6 @@
 
 (defn max-rating [reviews]
   (apply max (map :rating-num reviews)))
-
-;prosecna duzina teksta fake recenzija
-(defn average-text-length-fake [data]
-  (average-text-length (get-fake-reviews data)))
-
-;prosecna duzina teksta real recenzija
-(defn average-text-length-real [data]
-  (average-text-length (get-real-reviews data)))
 
 ;broj recenzija po kategoriji
 (defn reviews-count-by-category [data]

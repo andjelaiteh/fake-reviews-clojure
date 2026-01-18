@@ -62,11 +62,11 @@
       (some #{["Books" 2]} (top-fake-categories test-reviews)) => truthy
       (some #{["Electronics" 1] ["Sports" 1]} (top-fake-categories test-reviews)) => truthy)
 
-(fact "top-fake-categories returns the three categories with the most fake reviews"
-      (count (top-fake-categories test-reviews)) => 3
-      (some #{["Home" 3]} (top-fake-categories test-reviews)) => truthy
-      (some #{["Books" 2]} (top-fake-categories test-reviews)) => truthy
-      (some #{["Electronics" 1] ["Sports" 1]} (top-fake-categories test-reviews)) => truthy)
+(fact "top-real-categories returns the three categories with the most real reviews"
+      (count (top-real-categories test-reviews)) => 3
+      (some #{["Electronics" 2] ["Toys" 2]} (top-real-categories test-reviews)) => truthy
+      (some #{["Electronics" 2] ["Toys" 2]} (top-real-categories test-reviews)) => truthy
+      (some #{["Books" 1] ["Sports" 1]} (top-real-categories test-reviews)) => truthy)
 
 (fact "average-rating-by-category computes mean rating by category"
       (get (average-rating-by-category test-reviews) "Books") => (roughly 3.333 0.001)
