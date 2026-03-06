@@ -26,6 +26,5 @@ Projekat je organizovan kroz više namespace-ova:
 ## Dokumentacija
 Detaljna dokumentacija projekta nalazi se u sledećem dokumentu:
 [Analiza i klasifikacija recenzija – dokumentacija](doc/FAKEREVIEWS-dokumentacija.pdf)
-Detaljna dokumentacija projekta nalazi se u sledećem dokumentu:
 
 doc/seminarski-fakereviews.pdf
