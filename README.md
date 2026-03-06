@@ -1,44 +1,31 @@
-# fake-reviews
+# Fake Reviews Detection – Logistic Regression
 
-FIXME: description
+## Opis projekta
+Ovaj projekat predstavlja implementaciju sistema za analizu i klasifikaciju recenzija sa ciljem detekcije lažnih recenzija. Razvijen je model zasnovan na algoritmu logističke regresije koji vrši klasifikaciju recenzija na fake i real. Sistem obuhvata ceo proces obrade podataka, uključujući učitavanje dataseta, pripremu i analizu podataka, treniranje modela i evaluaciju performansi.
 
-## Installation
+## Korišćene tehnologije i alati
+- Clojure
+- IntelliJ IDEA
+- Leiningen
+- Midje
 
-Download from https://example.com/FIXME.
+## Dataset
+Za potrebe projekta korišćen je **Fake Reviews Dataset** koji je preuzet sa **Kaggle platforme**.
+Dataset koji je korišćen u projektu nalazi se u folderu resources:
+[Fake Reviews Dataset](resources/fake_reviews_dataset.csv)
 
-## Usage
+## Struktura projekta
+Projekat je organizovan kroz više namespace-ova:
 
-FIXME: explanation
+- data-source – učitavanje CSV fajla, 
+- preprocess – priprema i transformacija podataka za analizu,  
+- analytics – funkcije za analizu recenzija,
+- logistic-regression – implementacija algoritma logističke regresije  
+- core – glavni deo aplikacije koji povezuje sve module i pokreće sistem  
 
-    $ java -jar fake-reviews-0.1.0-standalone.jar [args]
+## Dokumentacija
+Detaljna dokumentacija projekta nalazi se u sledećem dokumentu:
+[Analiza i klasifikacija recenzija – dokumentacija](doc/FAKEREVIEWS-dokumentacija.pdf)
+Detaljna dokumentacija projekta nalazi se u sledećem dokumentu:
 
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2026 FIXME
-
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-https://www.eclipse.org/legal/epl-2.0.
-
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
+doc/seminarski-fakereviews.pdf
